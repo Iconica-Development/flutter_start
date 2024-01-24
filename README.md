@@ -88,3 +88,14 @@ startNavigatorUserStory(startUserStoryConfiguration, context);
 ```
 
 If the splashScreenBuilder is not used the SplashScreen will be skipped.
+
+The `StartUserStoryConfiguration` has its own parameters, as specified below:
+| Parameter | Explanation |
+|-----------|-------------|
+| splashScreenBuilder | The builder for the splashScreen. |
+| introductionOptions | The options for the introduction. |
+| introductionService | The service for the introduction. Default IntroductionService (SharedPreferencesIntroductionDataProvider()) |
+| homeEntry | The widget that will be shown after the introduction. |
+| introductionFallbackScreen | The widget that will be shown when the introduction is skipped. |
+| introductionScrollPhysics | The scrollPhysics for the introduction. |
+| showIntroduction | Whether or not the introduction should be shown. |
