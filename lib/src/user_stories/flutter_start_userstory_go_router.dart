@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction/flutter_introduction.dart';
+import 'package:flutter_introduction_shared_preferences/flutter_introduction_shared_preferences.dart';
 import 'package:flutter_start/src/go_router.dart';
 import 'package:flutter_start/src/models/start_configuration.dart';
 import 'package:flutter_start/src/routes.dart';
@@ -39,7 +40,9 @@ List<GoRoute> getStartStoryRoutes(
         path: StartUserStoryRoutes.introduction,
         pageBuilder: (context, state) {
           var introduction = Introduction(
-            service: configuration.introductionService,
+            service: configuration.introductionService ??
+                IntroductionService(
+                    SharedPreferencesIntroductionDataProvider()),
             navigateTo: () {
               context.go(StartUserStoryRoutes.home);
             },

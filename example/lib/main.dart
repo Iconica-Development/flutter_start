@@ -44,7 +44,6 @@ List<GoRoute> getStartRoutes() => getStartStoryRoutes(
       config,
     );
 
-StartUserStoryConfiguration s = const StartUserStoryConfiguration();
 StartUserStoryConfiguration config = StartUserStoryConfiguration(
   // showIntroduction: false,
   splashScreenBuilder: (context, onFinish) => SplashScreen(
@@ -82,9 +81,6 @@ StartUserStoryConfiguration config = StartUserStoryConfiguration(
     skippable: true,
     buttonBuilder: (context, onPressed, child, type) =>
         ElevatedButton(onPressed: onPressed, child: child),
-  ),
-  introductionService: IntroductionService(
-    ExampleIntroductionDataProvider(),
   ),
 );
 
