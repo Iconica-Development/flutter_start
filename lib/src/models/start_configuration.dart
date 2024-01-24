@@ -11,6 +11,7 @@ class StartUserStoryConfiguration {
     this.introductionFallbackScreen,
     this.introductionScrollPhysics,
     this.showIntroduction = true,
+    this.useKillswitch = false,
   });
   final Widget Function(
     BuildContext context,
@@ -24,4 +25,5 @@ class StartUserStoryConfiguration {
   final IntroductionService? introductionService;
   final ScrollPhysics? introductionScrollPhysics;
   final bool? showIntroduction;
+  final bool? useKillswitch;
 }

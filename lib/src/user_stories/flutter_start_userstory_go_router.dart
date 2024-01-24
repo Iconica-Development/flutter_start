@@ -8,6 +8,7 @@ import 'package:flutter_introduction_shared_preferences/flutter_introduction_sha
 import 'package:flutter_start/src/go_router.dart';
 import 'package:flutter_start/src/models/start_configuration.dart';
 import 'package:flutter_start/src/routes.dart';
+import 'package:flutter_start/src/services/killswitch_service.dart';
 
 import 'package:go_router/go_router.dart';
 
@@ -18,16 +19,24 @@ List<GoRoute> getStartStoryRoutes(
       GoRoute(
         path: StartUserStoryRoutes.splashScreen,
         pageBuilder: (context, state) {
+          var go = context.go;
           return buildScreenWithoutTransition(
             context: context,
             state: state,
             child: configuration.splashScreenBuilder?.call(
                   context,
-                  () {
-                    if (configuration.showIntroduction == false) {
-                      return context.go(StartUserStoryRoutes.home);
+                  () async {
+                    if (configuration.useKillswitch == true) {
+                      var isActive =
+                          await KillswitchService().isKillswitchActive();
+                      if (!isActive) {
+                        return;
+                      }
                     }
-                    return context.go(StartUserStoryRoutes.introduction);
+                    if (configuration.showIntroduction == false) {
+                      return go(StartUserStoryRoutes.home);
+                    }
+                    return go(StartUserStoryRoutes.introduction);
                   },
                 ) ??
                 const Scaffold(
