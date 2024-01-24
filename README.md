@@ -1,16 +1,90 @@
 # flutter_start
 
-A new Flutter project.
+Flutter_start is a package that allows you to jumpstart your application with a splashScreen, introduction and a home.
 
-## Getting Started
+## Setup
 
-This project is a starting point for a Flutter application.
+To use this package, add flutter_start as a dependency in your pubspec.yaml file:
 
-A few resources to get you started if this is your first Flutter project:
+```
+  flutter_start:
+    git:
+      url: https://github.com/Iconica-Development/flutter_start
+      ref: <Version>
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+To use the module within your Flutter-application with predefined `Go_router` routes you should add the following:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Add go_router as dependency to your project.
+Add the following configuration to your flutter_application:
+
+```
+StartUserStoryConfiguration startUserStoryConfiguration = const StartUserStoryConfiguration();
+```
+
+and set the values as you wish.
+
+Next add the `StartUserStoryConfiguration` to `getStartStoryRoutes` Like so:
+
+```
+List<GoRoute> getStartRoutes() => getStartStoryRoutes(
+      startUserStoryConfiguration,
+    );
+```
+
+Finally add the `getStartRoutes` to your `Go_router` routes like so:
+
+```
+final GoRouter _router = GoRouter(
+  routes: <RouteBase>[
+    ...getStartRoutes()
+  ],
+);
+```
+
+The routes that can be used to navigate are:
+
+For routing to the `SplashScreen`:
+
+```
+  static const String splashScreen = '/splashScreen';
+```
+
+For routing to the `Introduction`:
+
+```
+  static const String introduction = '/introduction';
+```
+
+For routing to the `HomeEntry`:
+
+```
+  static const String home = '/home';
+```
+
+If you don't want a SplashScreen in your application set your initialRoute to `Introduction`:
+
+```
+final GoRouter _router = GoRouter(
+  routes: <RouteBase>[
+    ...getStartRoutes()
+  ],
+    initialLocation: '/introduction',
+);
+```
+
+To use the module within your Flutter-application without predefined `Go_router` routes but with `Navigator` routes add the following :
+
+Add the following configuration to your flutter_application:
+
+```
+StartUserStoryConfiguration startUserStoryConfiguration = const StartUserStoryConfiguration();
+```
+
+Add the following code to the build-method of a chosen widget:
+
+```
+startNavigatorUserStory(startUserStoryConfiguration, context);
+```
+
+If the splashScreenBuilder is not used the SplashScreen will be skipped.
