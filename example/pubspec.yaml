@@ -1,21 +1,20 @@
-name: flutter_start
-description: "Flutter_start is a package that allows you to jumpstart your application with a splashScreen, introduction and a home."
+name: example
+description: "A new Flutter project."
 publish_to: "none"
-version: 1.0.0
-
 environment:
   sdk: ">=3.2.5 <4.0.0"
-
 dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  flutter_introduction:
+  go_router: ^13.0.1
+  flutter_start:
+    path: ../
+  flutter_introduction_shared_preferences:
     git:
       url: https://github.com/Iconica-Development/flutter_introduction
       ref: 2.0.0
-      path: packages/flutter_introduction
-  go_router: ^13.0.1
+      path: packages/flutter_introduction_shared_preferences
 
 dev_dependencies:
   flutter_test:
