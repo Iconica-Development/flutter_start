@@ -99,3 +99,4 @@ The `StartUserStoryConfiguration` has its own parameters, as specified below:
 | introductionFallbackScreen | The widget that will be shown when the introduction is skipped. |
 | introductionScrollPhysics | The scrollPhysics for the introduction. |
 | showIntroduction | Whether or not the introduction should be shown. |
+| useKillswitch | Whether or not the killswitch should be used. This will only work when you use the splashScreen and you need to have a active internet connection|

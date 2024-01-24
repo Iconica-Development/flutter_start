@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_shared_preferences/flutter_introduction_shared_preferences.dart';
 import 'package:flutter_start/flutter_start.dart';
+import 'package:flutter_start/src/services/killswitch_service.dart';
 
 Widget startNavigatorUserStory(
     StartUserStoryConfiguration configuration, BuildContext context) {
@@ -14,17 +15,25 @@ Widget _splashScreen(
   StartUserStoryConfiguration configuration,
   BuildContext context,
 ) {
+  var navigator = Navigator.of(context);
   return configuration.splashScreenBuilder?.call(
         context,
-        () {
+        () async {
+          bool isActive;
+          if (configuration.useKillswitch == true) {
+            isActive = await KillswitchService().isKillswitchActive();
+            if (!isActive) {
+              return () {};
+            }
+          }
           if (configuration.showIntroduction == false) {
-            return Navigator.of(context).pushReplacement(
+            return navigator.pushReplacement(
               MaterialPageRoute(
                 builder: (context) => _home(configuration, context),
               ),
             );
           }
-          return Navigator.of(context).pushReplacement(
+          return navigator.pushReplacement(
             MaterialPageRoute(
               builder: (context) => _introduction(configuration, context),
             ),
