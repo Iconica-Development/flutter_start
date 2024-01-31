@@ -12,33 +12,18 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Home(),
-    );
-  }
+  Widget build(BuildContext context) => const MaterialApp(
+        home: Home(),
+      );
 }
 
 class Home extends StatelessWidget {
   const Home({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return startNavigatorUserStory(config, context);
-  }
+  Widget build(BuildContext context) =>
+      startNavigatorUserStory(config, context);
 }
-
-final GoRouter _router = GoRouter(
-  routes: <RouteBase>[
-    GoRoute(
-      path: '/',
-      builder: (BuildContext context, GoRouterState state) {
-        return const Home();
-      },
-    ),
-    ...getStartRoutes()
-  ],
-);
 
 List<GoRoute> getStartRoutes() => getStartStoryRoutes(
       config,
@@ -50,7 +35,7 @@ StartUserStoryConfiguration config = StartUserStoryConfiguration(
     onFinish: onFinish,
   ),
   homeEntry: const HomeEntry(),
-  introductionOptions: IntroductionOptions(
+  introductionOptionsBuilder: (ctx) => IntroductionOptions(
     pages: [
       IntroductionPage(
         title: const Text('First page'),
@@ -106,28 +91,24 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("SplashScreen"),
-      ),
-      body: const Center(child: Text("SplashScreen")),
-    );
-  }
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: const Text('SplashScreen'),
+        ),
+        body: const Center(child: Text('SplashScreen')),
+      );
 }
 
 class HomeEntry extends StatelessWidget {
   const HomeEntry({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("HomeEntry"),
-      ),
-      body: const Center(child: Text("HomeEntry")),
-    );
-  }
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: const Text('HomeEntry'),
+        ),
+        body: const Center(child: Text('HomeEntry')),
+      );
 }
 
 class ExampleIntroductionDataProvider
@@ -136,14 +117,10 @@ class ExampleIntroductionDataProvider
   String key = 'example';
 
   @override
-  Future<void> setCompleted({bool value = true}) async {
-    // ignore: void_checks
-    return Future.value(false);
-  }
+  Future<void> setCompleted({bool value = true}) async =>
+      // ignore: void_checks
+      false;
 
   @override
-  Future<bool> shouldShow() {
-    // ignore: void_checks
-    return Future.value(true);
-  }
+  Future<bool> shouldShow() async => true;
 }
