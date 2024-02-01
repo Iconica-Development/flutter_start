@@ -5,8 +5,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 class KillswitchService {
   Future<bool> isKillswitchActive() async {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    String appName = packageInfo.appName;
+    var packageInfo = await PackageInfo.fromPlatform();
+    var appName = packageInfo.appName;
     var response = await http
         .get(
           Uri.parse('https://active-obelugnnza-uc.a.run.app/?appName=$appName'),

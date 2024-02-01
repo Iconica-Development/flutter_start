@@ -1,25 +1,30 @@
 name: example
-description: "A new Flutter project."
+description: "Flutter_start example app"
 publish_to: "none"
+
 environment:
   sdk: ">=3.2.5 <4.0.0"
+
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
-  go_router: ^13.0.1
+  go_router: any
   flutter_start:
     path: ../
   flutter_introduction_shared_preferences:
     git:
       url: https://github.com/Iconica-Development/flutter_introduction
-      ref: 2.0.0
+      ref: 2.1.0
       path: packages/flutter_introduction_shared_preferences
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  flutter_iconica_analysis:
+    git:
+      url: https://github.com/Iconica-Development/flutter_iconica_analysis
+      ref: 6.0.0
 
 flutter:
   uses-material-design: true

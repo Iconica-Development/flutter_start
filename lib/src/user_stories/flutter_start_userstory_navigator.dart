@@ -4,8 +4,12 @@ import 'package:flutter_start/flutter_start.dart';
 import 'package:flutter_start/src/services/killswitch_service.dart';
 
 Widget startNavigatorUserStory(
-    StartUserStoryConfiguration configuration, BuildContext context) {
-  if (configuration.splashScreenBuilder == null) {
+  StartUserStoryConfiguration configuration,
+  BuildContext context,
+) {
+  if (configuration.splashScreenBuilder == null &&
+      configuration.splashScreenCenterWidget == null &&
+      configuration.splashScreenBackgroundColor == null) {
     return _introduction(configuration, context);
   }
   return _splashScreen(configuration, context);
@@ -16,32 +20,57 @@ Widget _splashScreen(
   BuildContext context,
 ) {
   var navigator = Navigator.of(context);
+  var killSwitchIsActive = false;
+  Future<void> myFunction() async {
+    await Future.wait<void>(
+      [
+        configuration.splashScreenFuture?.call(context) ?? Future.value(),
+        Future.delayed(
+          Duration.zero,
+          () async {
+            if (configuration.useKillswitch)
+              killSwitchIsActive =
+                  await KillswitchService().isKillswitchActive();
+          },
+        ),
+        Future.delayed(
+          Duration(
+            seconds: configuration.minimumSplashScreenDuration,
+          ),
+          () async {},
+        ),
+      ],
+    );
+
+    if (configuration.useKillswitch) {
+      if (!killSwitchIsActive) {
+        return;
+      }
+    }
+    if (!configuration.showIntroduction) {
+      await navigator.pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => _home(configuration, context),
+        ),
+      );
+    }
+    await navigator.pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => _introduction(configuration, context),
+      ),
+    );
+  }
+
   return configuration.splashScreenBuilder?.call(
         context,
-        () async {
-          bool isActive;
-          if (configuration.useKillswitch == true) {
-            isActive = await KillswitchService().isKillswitchActive();
-            if (!isActive) {
-              return () {};
-            }
-          }
-          if (configuration.showIntroduction == false) {
-            return navigator.pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => _home(configuration, context),
-              ),
-            );
-          }
-          return navigator.pushReplacement(
-            MaterialPageRoute(
-              builder: (context) => _introduction(configuration, context),
-            ),
-          );
-        },
+        () async => myFunction(),
       ) ??
-      const Scaffold(
-        body: SizedBox.shrink(),
+      Scaffold(
+        backgroundColor: configuration.splashScreenBackgroundColor,
+        body: Center(
+          child: configuration.splashScreenCenterWidget?.call(context) ??
+              const SizedBox.shrink(),
+        ),
       );
 }
 
@@ -52,14 +81,13 @@ Widget _introduction(
   var introduction = Introduction(
     service: configuration.introductionService ??
         IntroductionService(SharedPreferencesIntroductionDataProvider()),
-    navigateTo: () {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => _home(configuration, context),
-        ),
-      );
-    },
-    options: configuration.introductionOptions,
+    navigateTo: () async => Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => _home(configuration, context),
+      ),
+    ),
+    options: configuration.introductionOptionsBuilder?.call(context) ??
+        const IntroductionOptions(),
     physics: configuration.introductionScrollPhysics,
     child: configuration.introductionFallbackScreen,
   );
