@@ -1,3 +1,7 @@
+## 2.0.1
+
+- Added Iconica Ci
+
 ## 2.0.0
 
 - Add support for default configurable splashscreen
