@@ -7,7 +7,9 @@ class KillswitchService {
   Future<bool> isKillswitchActive() async {
     var packageInfo = await PackageInfo.fromPlatform();
     var appName = packageInfo.appName;
-    var response = await http
+    http.Response response;
+
+    response = await http
         .get(
           Uri.parse('https://active-obelugnnza-uc.a.run.app/?appName=$appName'),
         )
