@@ -1,3 +1,8 @@
+## 2.0.2
+
+- Added configuration options
+- Fixed bug with killswitch
+
 ## 2.0.1
 
 - Added Iconica Ci

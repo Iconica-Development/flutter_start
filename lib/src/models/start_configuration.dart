@@ -13,6 +13,7 @@ class StartUserStoryConfiguration {
     this.introductionFallbackScreen,
     this.introductionScrollPhysics,
     this.showIntroduction = true,
+    this.alwaysShowIntroduction = false,
     this.useKillswitch = false,
     this.minimumSplashScreenDuration = 3,
     this.splashScreenFuture,
@@ -45,6 +46,9 @@ class StartUserStoryConfiguration {
 
   /// If the introduction should be shown.
   final bool showIntroduction;
+
+  /// If this is true the introduction will always be shown.
+  final bool alwaysShowIntroduction;
 
   /// If the killswitch is enabled this app can be remotely disabled.
   final bool useKillswitch;

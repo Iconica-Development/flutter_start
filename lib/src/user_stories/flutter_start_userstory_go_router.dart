@@ -23,6 +23,7 @@ List<GoRoute> getStartStoryRoutes(
         pageBuilder: (context, state) {
           var go = context.go;
           var killSwitchIsActive = false;
+          var introductionSeen = false;
           Future<void> myFunction() async {
             await Future.wait<void>(
               [
@@ -34,6 +35,11 @@ List<GoRoute> getStartStoryRoutes(
                     if (configuration.useKillswitch)
                       killSwitchIsActive =
                           await KillswitchService().isKillswitchActive();
+                    var introService = configuration.introductionService ??
+                        IntroductionService(
+                          SharedPreferencesIntroductionDataProvider(),
+                        );
+                    introductionSeen = !await introService.shouldShow();
                   },
                 ),
                 Future.delayed(
@@ -45,12 +51,10 @@ List<GoRoute> getStartStoryRoutes(
               ],
             );
 
-            if (configuration.useKillswitch) {
-              if (!killSwitchIsActive) {
-                return;
-              }
-            }
-            if (!configuration.showIntroduction) {
+            if (configuration.useKillswitch && killSwitchIsActive) return;
+
+            if (!configuration.showIntroduction ||
+                (introductionSeen && !configuration.alwaysShowIntroduction)) {
               return go(
                 configuration.homeScreenRoute ?? StartUserStoryRoutes.home,
               );

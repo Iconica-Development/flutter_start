@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_introduction_shared_preferences/flutter_introduction_shared_preferences.dart';
 import 'package:flutter_start/flutter_start.dart';
 import 'package:flutter_start/src/services/killswitch_service.dart';
 
@@ -21,6 +20,7 @@ Widget _splashScreen(
 ) {
   var navigator = Navigator.of(context);
   var killSwitchIsActive = false;
+  var introductionSeen = false;
   Future<void> myFunction() async {
     await Future.wait<void>(
       [
@@ -31,6 +31,11 @@ Widget _splashScreen(
             if (configuration.useKillswitch)
               killSwitchIsActive =
                   await KillswitchService().isKillswitchActive();
+            var introService = configuration.introductionService ??
+                IntroductionService(
+                  SharedPreferencesIntroductionDataProvider(),
+                );
+            introductionSeen = !await introService.shouldShow();
           },
         ),
         Future.delayed(
@@ -42,12 +47,10 @@ Widget _splashScreen(
       ],
     );
 
-    if (configuration.useKillswitch) {
-      if (!killSwitchIsActive) {
-        return;
-      }
-    }
-    if (!configuration.showIntroduction) {
+    if (configuration.useKillswitch && killSwitchIsActive) return;
+
+    if (!configuration.showIntroduction ||
+        (introductionSeen && !configuration.alwaysShowIntroduction)) {
       await navigator.pushReplacement(
         MaterialPageRoute(
           builder: (context) => _home(configuration, context),
