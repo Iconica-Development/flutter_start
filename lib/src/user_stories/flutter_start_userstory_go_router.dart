@@ -22,7 +22,7 @@ List<GoRoute> getStartStoryRoutes(
         path: StartUserStoryRoutes.splashScreen,
         pageBuilder: (context, state) {
           var go = context.go;
-          var killSwitchIsActive = false;
+          var isAllowedToPassThrough = false;
           var introductionSeen = false;
           Future<void> myFunction() async {
             await Future.wait<void>(
@@ -33,7 +33,7 @@ List<GoRoute> getStartStoryRoutes(
                   Duration.zero,
                   () async {
                     if (configuration.useKillswitch)
-                      killSwitchIsActive =
+                      isAllowedToPassThrough =
                           await KillswitchService().isKillswitchActive();
                     var introService = configuration.introductionService ??
                         IntroductionService(
@@ -51,7 +51,7 @@ List<GoRoute> getStartStoryRoutes(
               ],
             );
 
-            if (configuration.useKillswitch && killSwitchIsActive) return;
+            if (configuration.useKillswitch && !isAllowedToPassThrough) return;
 
             if (!configuration.showIntroduction ||
                 (introductionSeen && !configuration.alwaysShowIntroduction)) {
@@ -111,6 +111,19 @@ List<GoRoute> getStartStoryRoutes(
                 Scaffold(
                   body: introduction,
                 ),
+          );
+        },
+      ),
+      GoRoute(
+        path: StartUserStoryRoutes.home,
+        pageBuilder: (context, state) {
+          var home = configuration.homeEntry;
+          return buildScreenWithoutTransition(
+            context: context,
+            state: state,
+            child: Scaffold(
+              body: home,
+            ),
           );
         },
       ),
