@@ -49,8 +49,7 @@ Widget _splashScreen(
 
     if (configuration.useKillswitch && !isAllowedToPassThrough) return;
 
-    if (!configuration.showIntroduction ||
-        (introductionSeen && !configuration.alwaysShowIntroduction)) {
+    if (!configuration.showIntroduction || introductionSeen) {
       await navigator.pushReplacement(
         MaterialPageRoute(
           builder: (context) => _home(configuration, context),

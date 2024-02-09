@@ -53,8 +53,7 @@ List<GoRoute> getStartStoryRoutes(
 
             if (configuration.useKillswitch && !isAllowedToPassThrough) return;
 
-            if (!configuration.showIntroduction ||
-                (introductionSeen && !configuration.alwaysShowIntroduction)) {
+            if (!configuration.showIntroduction || introductionSeen) {
               return go(
                 configuration.homeScreenRoute ?? StartUserStoryRoutes.home,
               );

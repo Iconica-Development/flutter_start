@@ -24,13 +24,6 @@ class Home extends StatelessWidget {
       startNavigatorUserStory(config, context);
 }
 
-final _router = GoRouter(
-  initialLocation: '/splashScreen',
-  routes: [
-    ...getStartRoutes(),
-  ],
-);
-
 List<GoRoute> getStartRoutes() => getStartStoryRoutes(
       config,
     );
@@ -40,7 +33,7 @@ StartUserStoryConfiguration config = StartUserStoryConfiguration(
     ExampleIntroductionDataProvider(),
   ),
   useKillswitch: true,
-  // showIntroduction: false,
+  showIntroduction: true,
   splashScreenBuilder: (context, onFinish) => SplashScreen(
     onFinish: onFinish,
   ),
