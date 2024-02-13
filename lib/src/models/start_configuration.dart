@@ -63,5 +63,5 @@ class StartUserStoryConfiguration {
   final int minimumSplashScreenDuration;
 
   /// The future that is awaited before the splash screen is closed.
-  final Future<void> Function(BuildContext context)? splashScreenFuture;
+  final Future<String?> Function(BuildContext context)? splashScreenFuture;
 }
