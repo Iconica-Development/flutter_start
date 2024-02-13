@@ -24,11 +24,10 @@ List<GoRoute> getStartStoryRoutes(
           var go = context.go;
           var killSwitchIsActive = false;
           var introductionSeen = false;
-          Future<void> myFunction() async {
+          String? routeAfterSplash;
+          Future<void> splashLoadingMethod() async {
             await Future.wait<void>(
               [
-                configuration.splashScreenFuture?.call(context) ??
-                    Future.value(),
                 Future.delayed(
                   Duration.zero,
                   () async {
@@ -40,6 +39,10 @@ List<GoRoute> getStartStoryRoutes(
                           SharedPreferencesIntroductionDataProvider(),
                         );
                     introductionSeen = !await introService.shouldShow();
+                    if (context.mounted)
+                      routeAfterSplash = await configuration.splashScreenFuture
+                              ?.call(context) ??
+                          configuration.homeScreenRoute;
                   },
                 ),
                 Future.delayed(
@@ -56,21 +59,21 @@ List<GoRoute> getStartStoryRoutes(
             if (!configuration.showIntroduction ||
                 (introductionSeen && !configuration.alwaysShowIntroduction)) {
               return go(
-                configuration.homeScreenRoute ?? StartUserStoryRoutes.home,
+                routeAfterSplash ?? StartUserStoryRoutes.home,
               );
             }
             return go(StartUserStoryRoutes.introduction);
           }
 
           if (configuration.splashScreenBuilder == null) {
-            unawaited(myFunction());
+            unawaited(splashLoadingMethod());
           }
           return buildScreenWithoutTransition(
             context: context,
             state: state,
             child: configuration.splashScreenBuilder?.call(
                   context,
-                  () async => myFunction(),
+                  () async => splashLoadingMethod(),
                 ) ??
                 Scaffold(
                   backgroundColor: configuration.splashScreenBackgroundColor,

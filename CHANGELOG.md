@@ -1,3 +1,7 @@
+## 2.0.3
+
+- Added after splashscreen route
+
 ## 2.0.2
 
 - Added configuration options
