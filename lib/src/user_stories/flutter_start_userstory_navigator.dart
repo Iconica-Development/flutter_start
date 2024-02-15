@@ -19,7 +19,7 @@ Widget _splashScreen(
   BuildContext context,
 ) {
   var navigator = Navigator.of(context);
-  var killSwitchIsActive = false;
+  var isAllowedToPassThrough = false;
   var introductionSeen = false;
   Future<void> myFunction() async {
     await Future.wait<void>(
@@ -29,7 +29,7 @@ Widget _splashScreen(
           Duration.zero,
           () async {
             if (configuration.useKillswitch)
-              killSwitchIsActive =
+              isAllowedToPassThrough =
                   await KillswitchService().isKillswitchActive();
             var introService = configuration.introductionService ??
                 IntroductionService(
@@ -47,10 +47,9 @@ Widget _splashScreen(
       ],
     );
 
-    if (configuration.useKillswitch && killSwitchIsActive) return;
+    if (configuration.useKillswitch && isAllowedToPassThrough) return;
 
-    if (!configuration.showIntroduction ||
-        (introductionSeen && !configuration.alwaysShowIntroduction)) {
+    if (!configuration.showIntroduction || introductionSeen) {
       await navigator.pushReplacement(
         MaterialPageRoute(
           builder: (context) => _home(configuration, context),

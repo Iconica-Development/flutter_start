@@ -1,3 +1,7 @@
+## 2.0.4
+
+- Removed `AlwaysShowIntroduction` option, changed naming of `isKillSwitchActive` to `isAllowedToPassThrough`.
+
 ## 2.0.3
 
 - Added after splashscreen route
