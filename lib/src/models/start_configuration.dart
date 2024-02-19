@@ -18,6 +18,7 @@ class StartUserStoryConfiguration {
     this.splashScreenFuture,
     this.splashScreenCenterWidget,
     this.splashScreenBackgroundColor,
+    this.canPopFromIntroduction = true,
   });
 
   /// You can use this to build your own splash screen.
@@ -60,4 +61,7 @@ class StartUserStoryConfiguration {
 
   /// The future that is awaited before the splash screen is closed.
   final Future<String?> Function(BuildContext context)? splashScreenFuture;
+
+  /// Allow popping from introduction, defaults to true
+  final bool canPopFromIntroduction;
 }

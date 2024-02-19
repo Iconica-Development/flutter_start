@@ -103,16 +103,20 @@ List<GoRoute> getStartStoryRoutes(
             physics: configuration.introductionScrollPhysics,
             child: configuration.introductionFallbackScreen,
           );
+
           return buildScreenWithoutTransition(
             context: context,
             state: state,
-            child: configuration.introductionBuilder?.call(
-                  context,
-                  introduction,
-                ) ??
-                Scaffold(
-                  body: introduction,
-                ),
+            child: PopScope(
+              canPop: configuration.canPopFromIntroduction,
+              child: configuration.introductionBuilder?.call(
+                    context,
+                    introduction,
+                  ) ??
+                  Scaffold(
+                    body: introduction,
+                  ),
+            ),
           );
         },
       ),
