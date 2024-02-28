@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction/flutter_introduction.dart';
 
+/// An immutable class that represents the configuration for
+/// starting a user story.
 @immutable
 class StartUserStoryConfiguration {
+  /// Creates a new instance of [StartUserStoryConfiguration].
   const StartUserStoryConfiguration({
     this.splashScreenBuilder,
     this.introductionBuilder,
