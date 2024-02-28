@@ -1,7 +1,7 @@
 name: flutter_start
 description: "Flutter_start is a package that allows you to jumpstart your application with a splashScreen, introduction and a home."
 publish_to: "none"
-version: 2.0.4
+version: 2.0.5
 
 environment:
   sdk: ">=3.2.5 <4.0.0"

@@ -1,3 +1,7 @@
+## 2.0.5
+
+- Added canPopFromIntroduction to enable/disable popping from introduction screens
+
 ## 2.0.4
 
 - Removed `AlwaysShowIntroduction` option, changed naming of `isKillSwitchActive` to `isAllowedToPassThrough`.

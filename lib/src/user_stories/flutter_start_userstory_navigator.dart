@@ -93,8 +93,11 @@ Widget _introduction(
     physics: configuration.introductionScrollPhysics,
     child: configuration.introductionFallbackScreen,
   );
-  return Scaffold(
-    body: introduction,
+  return PopScope(
+    canPop: configuration.canPopFromIntroduction,
+    child: Scaffold(
+      body: introduction,
+    ),
   );
 }
 
