@@ -100,3 +100,15 @@ The `StartUserStoryConfiguration` has its own parameters, as specified below:
 | introductionScrollPhysics | The scrollPhysics for the introduction. |
 | showIntroduction | Whether or not the introduction should be shown. |
 | useKillswitch | Whether or not the killswitch should be used. This will only work when you use the splashScreen and you need to have a active internet connection|
+
+## Issues
+
+Please file any issues, bugs or feature request as an issue on our [GitHub](https://github.com/Iconica-Development/flutter_start) page. Commercial support is available if you need help with integration with your app or services. You can contact us at [support@iconica.nl](mailto:support@iconica.nl).
+
+## Want to contribute
+[text](about:blank#blocked)
+If you would like to contribute to the plugin (e.g. by improving the documentation, solving a bug or adding a cool new feature), please carefully review our [contribution guide](./CONTRIBUTING.md) and send us your [pull request](https://github.com/Iconica-Development/flutter_start/pulls).
+
+## Author
+
+This flutter_start for Flutter is developed by [Iconica](https://iconica.nl). You can contact us at <support@iconica.nl>
