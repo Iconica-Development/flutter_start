@@ -55,6 +55,7 @@ Widget _splashScreen(
           builder: (context) => _home(configuration, context),
         ),
       );
+      return;
     }
     await navigator.pushReplacement(
       MaterialPageRoute(
