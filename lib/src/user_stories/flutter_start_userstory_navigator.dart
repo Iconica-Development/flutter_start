@@ -4,21 +4,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_start/flutter_start.dart';
 import 'package:flutter_start/src/services/killswitch_service.dart';
 
+/// Enter the start user story with the Navigator 1.0 API.
+///
+/// Requires a Navigator widget to exist in the given [context].
+///
+/// Customization can be done through the [configuration] parameter.
+///
+/// [onComplete] triggers as soon as the userstory is finished.
+///
+/// The context provided here is a context has a guaranteed navigator.
 Widget startNavigatorUserStory(
-  StartUserStoryConfiguration configuration,
   BuildContext context,
-) {
+  StartUserStoryConfiguration configuration, {
+  required void Function(BuildContext context) onComplete,
+}) {
   if (configuration.splashScreenBuilder == null &&
       configuration.splashScreenCenterWidget == null &&
       configuration.splashScreenBackgroundColor == null) {
-    return _introduction(configuration, context);
+    return _introduction(configuration, context, onComplete);
   }
-  return _splashScreen(configuration, context);
+  return _splashScreen(configuration, context, onComplete);
 }
 
 Widget _splashScreen(
   StartUserStoryConfiguration configuration,
   BuildContext context,
+  void Function(BuildContext context) onComplete,
 ) {
   var navigator = Navigator.of(context);
 
@@ -59,18 +70,18 @@ Widget _splashScreen(
 
     if ((!configuration.showIntroduction || introductionSeen) &&
         context.mounted) {
-      await navigator.pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => _home(configuration, context),
-        ),
-      );
+      onComplete(context);
       return;
     }
 
     if (context.mounted) {
       await navigator.pushReplacement(
         MaterialPageRoute(
-          builder: (context) => _introduction(configuration, context),
+          builder: (context) => _introduction(
+            configuration,
+            context,
+            onComplete,
+          ),
         ),
       );
     }
@@ -98,15 +109,12 @@ Widget _splashScreen(
 Widget _introduction(
   StartUserStoryConfiguration configuration,
   BuildContext context,
+  void Function(BuildContext context) onComplete,
 ) {
   var introduction = Introduction(
     service: configuration.introductionService ??
         IntroductionService(SharedPreferencesIntroductionDataProvider()),
-    navigateTo: () async => Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => _home(configuration, context),
-      ),
-    ),
+    navigateTo: () async => onComplete(context),
     options: configuration.introductionOptionsBuilder?.call(context) ??
         const IntroductionOptions(),
     physics: configuration.introductionScrollPhysics,
@@ -117,15 +125,5 @@ Widget _introduction(
     child: Scaffold(
       body: introduction,
     ),
-  );
-}
-
-Widget _home(
-  StartUserStoryConfiguration configuration,
-  BuildContext context,
-) {
-  var home = configuration.homeEntry;
-  return Scaffold(
-    body: home,
   );
 }

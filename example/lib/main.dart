@@ -20,8 +20,15 @@ class Home extends StatelessWidget {
   const Home({super.key});
 
   @override
-  Widget build(BuildContext context) =>
-      startNavigatorUserStory(config, context);
+  Widget build(BuildContext context) => startNavigatorUserStory(
+        context,
+        config,
+        onComplete: (context) async {
+          await Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const HomeEntry()),
+          );
+        },
+      );
 }
 
 List<GoRoute> getStartRoutes() => getStartStoryRoutes(
@@ -33,7 +40,6 @@ StartUserStoryConfiguration config = StartUserStoryConfiguration(
   splashScreenBuilder: (context, onFinish) => SplashScreen(
     onFinish: onFinish,
   ),
-  homeEntry: const HomeEntry(),
   introductionOptionsBuilder: (ctx) => IntroductionOptions(
     pages: [
       IntroductionPage(
