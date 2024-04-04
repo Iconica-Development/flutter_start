@@ -4,6 +4,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_start/flutter_start.dart';
 import 'package:flutter_start/src/services/killswitch_service.dart';
 
+/// Initial screen of the user story.
+///
+/// Use this when defining an initial route.
+class NavigatorStartUserStory extends StatelessWidget {
+  const NavigatorStartUserStory({
+    required this.onComplete,
+    this.configuration = const StartUserStoryConfiguration(),
+    super.key,
+  });
+
+  final StartUserStoryConfiguration configuration;
+  final void Function(BuildContext context) onComplete;
+
+  @override
+  Widget build(BuildContext context) {
+    if (configuration.showIntroduction) {
+      return _introduction(configuration, context, onComplete);
+    }
+
+    return _splashScreen(configuration, context, onComplete);
+  }
+}
+
 /// Enter the start user story with the Navigator 1.0 API.
 ///
 /// Requires a Navigator widget to exist in the given [context].
@@ -13,17 +36,30 @@ import 'package:flutter_start/src/services/killswitch_service.dart';
 /// [onComplete] triggers as soon as the userstory is finished.
 ///
 /// The context provided here is a context has a guaranteed navigator.
-Widget startNavigatorUserStory(
+Future<void> startNavigatorUserStory(
   BuildContext context,
   StartUserStoryConfiguration configuration, {
   required void Function(BuildContext context) onComplete,
-}) {
-  if (configuration.splashScreenBuilder == null &&
-      configuration.splashScreenCenterWidget == null &&
-      configuration.splashScreenBackgroundColor == null) {
-    return _introduction(configuration, context, onComplete);
+}) async {
+  var initialRoute = MaterialPageRoute(
+    builder: (context) => _splashScreen(
+      configuration,
+      context,
+      onComplete,
+    ),
+  );
+
+  if (configuration.startWithIntroScreen) {
+    initialRoute = MaterialPageRoute(
+      builder: (context) => _introduction(
+        configuration,
+        context,
+        onComplete,
+      ),
+    );
   }
-  return _splashScreen(configuration, context, onComplete);
+
+  await Navigator.of(context).push(initialRoute);
 }
 
 Widget _splashScreen(

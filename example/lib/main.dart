@@ -20,9 +20,8 @@ class Home extends StatelessWidget {
   const Home({super.key});
 
   @override
-  Widget build(BuildContext context) => startNavigatorUserStory(
-        context,
-        config,
+  Widget build(BuildContext context) => NavigatorStartUserStory(
+        configuration: config,
         onComplete: (context) async {
           await Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => const HomeEntry()),
