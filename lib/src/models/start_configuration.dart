@@ -12,7 +12,6 @@ class StartUserStoryConfiguration {
     this.introductionBuilder,
     this.introductionOptionsBuilder,
     this.introductionService,
-    this.homeEntry,
     this.homeScreenRoute,
     this.introductionFallbackScreen,
     this.introductionScrollPhysics,
@@ -40,8 +39,6 @@ class StartUserStoryConfiguration {
 
   /// The route that is used to navigate to the home screen.
   final String? homeScreenRoute;
-
-  final Widget? homeEntry;
 
   final IntroductionOptions Function(BuildContext context)?
       introductionOptionsBuilder;
