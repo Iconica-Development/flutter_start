@@ -67,4 +67,10 @@ class StartUserStoryConfiguration {
 
   /// Allow popping from introduction, defaults to true
   final bool canPopFromIntroduction;
+
+  /// returns true if the userstory should start with the introduction screen
+  bool get startWithIntroScreen =>
+      splashScreenBuilder == null &&
+      splashScreenCenterWidget == null &&
+      splashScreenBackgroundColor == null;
 }
