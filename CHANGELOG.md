@@ -1,3 +1,16 @@
+## 3.0.0
+
+BREAKING:
+- add NavigatorStartUserStory widget
+- change homeEntry to an onComplete callback
+
+Other changes:
+- add parameter to configuration to supply an implementation of the killswitch service
+- call splash handler when no builder is provided
+- add mounted check to navigation after async gap for navigator version
+- rename myFunction in splashscreen function to splashHandler
+- add return after routing on navigator version
+
 ## 2.0.5
 
 - Added canPopFromIntroduction to enable/disable popping from introduction screens
