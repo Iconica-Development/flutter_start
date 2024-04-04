@@ -32,9 +32,14 @@ Widget _splashScreen(
         Future.delayed(
           Duration.zero,
           () async {
-            if (configuration.useKillswitch)
+            if (configuration.useKillswitch) {
+              var killswitchService =
+                  configuration.killswitchService ?? DefaultKillswitchService();
+
               isAllowedToPassThrough =
-                  await KillswitchService().isKillswitchActive();
+                  await killswitchService.isKillswitchActive();
+            }
+
             var introService = configuration.introductionService ??
                 IntroductionService(
                   SharedPreferencesIntroductionDataProvider(),
