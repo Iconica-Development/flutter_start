@@ -19,9 +19,11 @@ Widget _splashScreen(
   BuildContext context,
 ) {
   var navigator = Navigator.of(context);
+
   var isAllowedToPassThrough = false;
   var introductionSeen = false;
-  Future<void> myFunction() async {
+
+  Future<void> splashHandler() async {
     await Future.wait<void>(
       [
         configuration.splashScreenFuture?.call(context) ?? Future.value(),
@@ -42,7 +44,6 @@ Widget _splashScreen(
           Duration(
             seconds: configuration.minimumSplashScreenDuration,
           ),
-          () async {},
         ),
       ],
     );
@@ -65,7 +66,7 @@ Widget _splashScreen(
 
   return configuration.splashScreenBuilder?.call(
         context,
-        () async => myFunction(),
+        splashHandler,
       ) ??
       Scaffold(
         backgroundColor: configuration.splashScreenBackgroundColor,
