@@ -50,18 +50,22 @@ Widget _splashScreen(
 
     if (configuration.useKillswitch && isAllowedToPassThrough) return;
 
-    if (!configuration.showIntroduction || introductionSeen) {
+    if ((!configuration.showIntroduction || introductionSeen) &&
+        context.mounted) {
       await navigator.pushReplacement(
         MaterialPageRoute(
           builder: (context) => _home(configuration, context),
         ),
       );
     }
-    await navigator.pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => _introduction(configuration, context),
-      ),
-    );
+
+    if (context.mounted) {
+      await navigator.pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => _introduction(configuration, context),
+        ),
+      );
+    }
   }
 
   return configuration.splashScreenBuilder?.call(
