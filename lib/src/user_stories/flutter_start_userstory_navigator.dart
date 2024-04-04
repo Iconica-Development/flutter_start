@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_start/flutter_start.dart';
 import 'package:flutter_start/src/services/killswitch_service.dart';
@@ -19,9 +21,11 @@ Widget _splashScreen(
   BuildContext context,
 ) {
   var navigator = Navigator.of(context);
+
   var isAllowedToPassThrough = false;
   var introductionSeen = false;
-  Future<void> myFunction() async {
+
+  Future<void> splashHandler() async {
     await Future.wait<void>(
       [
         configuration.splashScreenFuture?.call(context) ?? Future.value(),
@@ -42,14 +46,14 @@ Widget _splashScreen(
           Duration(
             seconds: configuration.minimumSplashScreenDuration,
           ),
-          () async {},
         ),
       ],
     );
 
     if (configuration.useKillswitch && isAllowedToPassThrough) return;
 
-    if (!configuration.showIntroduction || introductionSeen) {
+    if ((!configuration.showIntroduction || introductionSeen) &&
+        context.mounted) {
       await navigator.pushReplacement(
         MaterialPageRoute(
           builder: (context) => _home(configuration, context),
@@ -57,24 +61,33 @@ Widget _splashScreen(
       );
       return;
     }
-    await navigator.pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => _introduction(configuration, context),
+
+    if (context.mounted) {
+      await navigator.pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => _introduction(configuration, context),
+        ),
+      );
+    }
+  }
+
+  var builder = configuration.splashScreenBuilder;
+
+  if (builder == null) {
+    unawaited(splashHandler());
+    return Scaffold(
+      backgroundColor: configuration.splashScreenBackgroundColor,
+      body: Center(
+        child: configuration.splashScreenCenterWidget?.call(context) ??
+            const SizedBox.shrink(),
       ),
     );
   }
 
-  return configuration.splashScreenBuilder?.call(
-        context,
-        () async => myFunction(),
-      ) ??
-      Scaffold(
-        backgroundColor: configuration.splashScreenBackgroundColor,
-        body: Center(
-          child: configuration.splashScreenCenterWidget?.call(context) ??
-              const SizedBox.shrink(),
-        ),
-      );
+  return builder.call(
+    context,
+    splashHandler,
+  );
 }
 
 Widget _introduction(
