@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction/flutter_introduction.dart';
+import 'package:flutter_start/src/services/killswitch_service.dart';
 
 /// An immutable class that represents the configuration for
 /// starting a user story.
@@ -22,6 +23,7 @@ class StartUserStoryConfiguration {
     this.splashScreenCenterWidget,
     this.splashScreenBackgroundColor,
     this.canPopFromIntroduction = true,
+    this.killswitchService,
   });
 
   /// You can use this to build your own splash screen.
@@ -45,6 +47,7 @@ class StartUserStoryConfiguration {
       introductionOptionsBuilder;
   final Widget? introductionFallbackScreen;
   final IntroductionService? introductionService;
+  final KillswitchService? killswitchService;
   final ScrollPhysics? introductionScrollPhysics;
 
   /// If the introduction should be shown.
