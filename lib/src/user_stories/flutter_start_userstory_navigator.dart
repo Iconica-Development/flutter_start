@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_start/flutter_start.dart';
 import 'package:flutter_start/src/services/killswitch_service.dart';
@@ -68,17 +70,23 @@ Widget _splashScreen(
     }
   }
 
-  return configuration.splashScreenBuilder?.call(
-        context,
-        splashHandler,
-      ) ??
-      Scaffold(
-        backgroundColor: configuration.splashScreenBackgroundColor,
-        body: Center(
-          child: configuration.splashScreenCenterWidget?.call(context) ??
-              const SizedBox.shrink(),
-        ),
-      );
+  var builder = configuration.splashScreenBuilder;
+
+  if (builder == null) {
+    unawaited(splashHandler());
+    return Scaffold(
+      backgroundColor: configuration.splashScreenBackgroundColor,
+      body: Center(
+        child: configuration.splashScreenCenterWidget?.call(context) ??
+            const SizedBox.shrink(),
+      ),
+    );
+  }
+
+  return builder.call(
+    context,
+    splashHandler,
+  );
 }
 
 Widget _introduction(
