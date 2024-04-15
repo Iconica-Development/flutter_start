@@ -19,7 +19,7 @@ class NavigatorStartUserStory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (configuration.showIntroduction) {
+    if (configuration.startWithIntroScreen) {
       return _introduction(configuration, context, onComplete);
     }
 
