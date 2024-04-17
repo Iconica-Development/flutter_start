@@ -1,3 +1,8 @@
+## 4.0.0
+- Added default introduction page.
+- Added default splash screen.
+- Changed the way the splash screen is enabled/disabled.
+
 ## 3.0.0
 
 BREAKING:

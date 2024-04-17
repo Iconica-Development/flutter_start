@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_start/flutter_start.dart';
 import 'package:flutter_start/src/services/killswitch_service.dart';
+import 'package:flutter_start/src/widgets/default_introduction_options.dart';
+import 'package:flutter_start/src/widgets/default_splash_screen.dart';
 
 /// Initial screen of the user story.
 ///
@@ -19,7 +21,7 @@ class NavigatorStartUserStory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (configuration.startWithIntroScreen) {
+    if (!configuration.showSplashScreen) {
       return _introduction(configuration, context, onComplete);
     }
 
@@ -49,7 +51,7 @@ Future<void> startNavigatorUserStory(
     ),
   );
 
-  if (configuration.startWithIntroScreen) {
+  if (!configuration.showSplashScreen && configuration.showIntroduction) {
     initialRoute = MaterialPageRoute(
       builder: (context) => _introduction(
         configuration,
@@ -131,7 +133,7 @@ Widget _splashScreen(
       backgroundColor: configuration.splashScreenBackgroundColor,
       body: Center(
         child: configuration.splashScreenCenterWidget?.call(context) ??
-            const SizedBox.shrink(),
+            defaultSplashScreen,
       ),
     );
   }
@@ -152,14 +154,18 @@ Widget _introduction(
         IntroductionService(SharedPreferencesIntroductionDataProvider()),
     navigateTo: () async => onComplete(context),
     options: configuration.introductionOptionsBuilder?.call(context) ??
-        const IntroductionOptions(),
+        defaultIntroductionOptions,
     physics: configuration.introductionScrollPhysics,
     child: configuration.introductionFallbackScreen,
   );
   return PopScope(
     canPop: configuration.canPopFromIntroduction,
-    child: Scaffold(
-      body: introduction,
-    ),
+    child: configuration.introductionBuilder?.call(
+          context,
+          introduction,
+        ) ??
+        Scaffold(
+          body: introduction,
+        ),
   );
 }

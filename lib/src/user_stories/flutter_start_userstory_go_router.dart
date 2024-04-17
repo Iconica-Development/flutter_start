@@ -11,7 +11,8 @@ import 'package:flutter_start/src/go_router.dart';
 import 'package:flutter_start/src/models/start_configuration.dart';
 import 'package:flutter_start/src/routes.dart';
 import 'package:flutter_start/src/services/killswitch_service.dart';
-
+import 'package:flutter_start/src/widgets/default_introduction_options.dart';
+import 'package:flutter_start/src/widgets/default_splash_screen.dart';
 import 'package:go_router/go_router.dart';
 
 List<GoRoute> getStartStoryRoutes(
@@ -84,7 +85,7 @@ List<GoRoute> getStartStoryRoutes(
                   body: Center(
                     child:
                         configuration.splashScreenCenterWidget?.call(context) ??
-                            const SizedBox.shrink(),
+                            defaultSplashScreen,
                   ),
                 ),
           );
@@ -104,7 +105,7 @@ List<GoRoute> getStartStoryRoutes(
               );
             },
             options: configuration.introductionOptionsBuilder?.call(context) ??
-                const IntroductionOptions(),
+                defaultIntroductionOptions,
             physics: configuration.introductionScrollPhysics,
             child: configuration.introductionFallbackScreen,
           );
