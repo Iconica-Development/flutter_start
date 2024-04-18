@@ -93,13 +93,22 @@ The `StartUserStoryConfiguration` has its own parameters, as specified below:
 | Parameter | Explanation |
 |-----------|-------------|
 | splashScreenBuilder | The builder for the splashScreen. |
-| introductionOptions | The options for the introduction. |
+| introductionBuilder | The builder for the introduction. |
+| introductionOptionsBuilder | The options for the introduction. |
 | introductionService | The service for the introduction. Default IntroductionService (SharedPreferencesIntroductionDataProvider()) |
 | homeEntry | The widget that will be shown after the introduction. |
+| homeScreenRoute | The route that will be shown after the introduction when using gorouter |
 | introductionFallbackScreen | The widget that will be shown when the introduction is skipped. |
 | introductionScrollPhysics | The scrollPhysics for the introduction. |
 | showIntroduction | Whether or not the introduction should be shown. |
 | useKillswitch | Whether or not the killswitch should be used. This will only work when you use the splashScreen and you need to have a active internet connection|
+| minimumSplashScreenDuration | The minimum duration the splashScreen should be shown. |
+| splashScreenFuture | The future that will be awaited before the splashScreen is closed. |
+| splashScreenCenterWidget | The widget that will be shown in the center of the splashScreen. |
+| splashScreenBackgroundColor | The background color of the splashScreen. |
+| canPopFromIntroduction | Whether or not the introduction can be popped. |
+| killswitchService | The service for the killswitch. Instead of the default service |
+| showSplashScreen | Whether or not the splashScreen should be shown. |
 
 ## Issues
 

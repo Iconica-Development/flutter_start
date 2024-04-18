@@ -20,9 +20,10 @@ class StartUserStoryConfiguration {
     this.minimumSplashScreenDuration = 3,
     this.splashScreenFuture,
     this.splashScreenCenterWidget,
-    this.splashScreenBackgroundColor,
+    this.splashScreenBackgroundColor = const Color(0xff212121),
     this.canPopFromIntroduction = true,
     this.killswitchService,
+    this.showSplashScreen = true,
   });
 
   /// You can use this to build your own splash screen.
@@ -68,9 +69,6 @@ class StartUserStoryConfiguration {
   /// Allow popping from introduction, defaults to true
   final bool canPopFromIntroduction;
 
-  /// returns true if the userstory should start with the introduction screen
-  bool get startWithIntroScreen =>
-      splashScreenBuilder == null &&
-      splashScreenCenterWidget == null &&
-      splashScreenBackgroundColor == null;
+  /// If the splash screen should be shown or not.
+  final bool showSplashScreen;
 }
