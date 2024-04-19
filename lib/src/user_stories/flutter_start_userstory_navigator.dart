@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_start/flutter_start.dart';
 import 'package:flutter_start/src/services/killswitch_service.dart';
-import 'package:flutter_start/src/widgets/default_introduction_options.dart';
 import 'package:flutter_start/src/widgets/default_splash_screen.dart';
 
 /// Initial screen of the user story.
@@ -154,7 +153,7 @@ Widget _introduction(
         IntroductionService(SharedPreferencesIntroductionDataProvider()),
     navigateTo: () async => onComplete(context),
     options: configuration.introductionOptionsBuilder?.call(context) ??
-        defaultIntroductionOptions,
+        const IntroductionOptions(),
     physics: configuration.introductionScrollPhysics,
     child: configuration.introductionFallbackScreen,
   );
