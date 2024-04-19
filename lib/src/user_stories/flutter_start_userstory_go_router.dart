@@ -11,13 +11,13 @@ import 'package:flutter_start/src/go_router.dart';
 import 'package:flutter_start/src/models/start_configuration.dart';
 import 'package:flutter_start/src/routes.dart';
 import 'package:flutter_start/src/services/killswitch_service.dart';
-import 'package:flutter_start/src/widgets/default_introduction_options.dart';
 import 'package:flutter_start/src/widgets/default_splash_screen.dart';
 import 'package:go_router/go_router.dart';
 
-List<GoRoute> getStartStoryRoutes(
-  StartUserStoryConfiguration configuration,
-) =>
+List<GoRoute> getStartStoryRoutes({
+  StartUserStoryConfiguration? configuration =
+      const StartUserStoryConfiguration(),
+}) =>
     <GoRoute>[
       GoRoute(
         path: StartUserStoryRoutes.splashScreen,
@@ -32,7 +32,7 @@ List<GoRoute> getStartStoryRoutes(
                 Future.delayed(
                   Duration.zero,
                   () async {
-                    if (configuration.useKillswitch) {
+                    if (configuration!.useKillswitch) {
                       var killswitchService = configuration.killswitchService ??
                           DefaultKillswitchService();
 
@@ -53,7 +53,7 @@ List<GoRoute> getStartStoryRoutes(
                 ),
                 Future.delayed(
                   Duration(
-                    seconds: configuration.minimumSplashScreenDuration,
+                    seconds: configuration!.minimumSplashScreenDuration,
                   ),
                   () async {},
                 ),
@@ -70,7 +70,7 @@ List<GoRoute> getStartStoryRoutes(
             return go(StartUserStoryRoutes.introduction);
           }
 
-          if (configuration.splashScreenBuilder == null) {
+          if (configuration!.splashScreenBuilder == null) {
             unawaited(splashLoadingMethod());
           }
           return buildScreenWithoutTransition(
@@ -95,7 +95,7 @@ List<GoRoute> getStartStoryRoutes(
         path: StartUserStoryRoutes.introduction,
         pageBuilder: (context, state) {
           var introduction = Introduction(
-            service: configuration.introductionService ??
+            service: configuration!.introductionService ??
                 IntroductionService(
                   SharedPreferencesIntroductionDataProvider(),
                 ),
@@ -105,7 +105,7 @@ List<GoRoute> getStartStoryRoutes(
               );
             },
             options: configuration.introductionOptionsBuilder?.call(context) ??
-                defaultIntroductionOptions,
+                const IntroductionOptions(),
             physics: configuration.introductionScrollPhysics,
             child: configuration.introductionFallbackScreen,
           );
