@@ -71,7 +71,6 @@ Widget _splashScreen(
   var navigator = Navigator.of(context);
 
   var isAllowedToPassThrough = false;
-  var introductionSeen = false;
 
   Future<void> splashHandler() async {
     await Future.wait<void>(
@@ -87,12 +86,6 @@ Widget _splashScreen(
               isAllowedToPassThrough =
                   await killswitchService.isKillswitchActive();
             }
-
-            var introService = configuration.introductionService ??
-                IntroductionService(
-                  SharedPreferencesIntroductionDataProvider(),
-                );
-            introductionSeen = !await introService.shouldShow();
           },
         ),
         Future.delayed(
@@ -105,8 +98,7 @@ Widget _splashScreen(
 
     if (configuration.useKillswitch && isAllowedToPassThrough) return;
 
-    if ((!configuration.showIntroduction || introductionSeen) &&
-        context.mounted) {
+    if ((!configuration.showIntroduction) && context.mounted) {
       onComplete(context);
       return;
     }
@@ -132,7 +124,7 @@ Widget _splashScreen(
       backgroundColor: configuration.splashScreenBackgroundColor,
       body: Center(
         child: configuration.splashScreenCenterWidget?.call(context) ??
-            defaultSplashScreen,
+            defaultSplashScreen(context),
       ),
     );
   }

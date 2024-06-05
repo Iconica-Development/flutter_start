@@ -1,7 +1,7 @@
 name: flutter_start
 description: "Flutter_start is a package that allows you to jumpstart your application with a splashScreen, introduction and a home."
 publish_to: "none"
-version: 4.0.0
+version: 4.1.0
 
 environment:
   sdk: ">=3.2.5 <4.0.0"
@@ -16,12 +16,12 @@ dependencies:
   flutter_introduction:
     git:
       url: https://github.com/Iconica-Development/flutter_introduction
-      ref: 3.0.0
+      ref: 3.1.0
       path: packages/flutter_introduction
   flutter_introduction_shared_preferences:
     git:
       url: https://github.com/Iconica-Development/flutter_introduction
-      ref: 3.0.0
+      ref: 3.1.0
       path: packages/flutter_introduction_shared_preferences
 
 dev_dependencies:
