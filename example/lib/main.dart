@@ -39,38 +39,6 @@ StartUserStoryConfiguration config = StartUserStoryConfiguration(
   splashScreenBuilder: (context, onFinish) => SplashScreen(
     onFinish: onFinish,
   ),
-  introductionOptionsBuilder: (ctx) => IntroductionOptions(
-    pages: [
-      const IntroductionPage(
-        title: Text('First page'),
-        text: Text('Wow a page'),
-        graphic: FlutterLogo(),
-      ),
-      const IntroductionPage(
-        title: Text('Second page'),
-        text: Text('Another page'),
-        graphic: FlutterLogo(),
-      ),
-      const IntroductionPage(
-        title: Text('Third page'),
-        text: Text('The final page of this app'),
-        graphic: FlutterLogo(),
-      ),
-    ],
-    introductionTranslations: const IntroductionTranslations(
-      skipButton: 'Skip it!',
-      nextButton: 'Next',
-      previousButton: 'Previous',
-      finishButton: 'To the app!',
-    ),
-    tapEnabled: true,
-    displayMode: IntroductionDisplayMode.multiPageHorizontal,
-    buttonMode: IntroductionScreenButtonMode.text,
-    indicatorMode: IndicatorMode.dash,
-    skippable: true,
-    buttonBuilder: (context, onPressed, child, type) =>
-        ElevatedButton(onPressed: onPressed, child: child),
-  ),
 );
 
 class SplashScreen extends StatefulWidget {
@@ -113,18 +81,4 @@ class HomeEntry extends StatelessWidget {
         ),
         body: const Center(child: Text('HomeEntry')),
       );
-}
-
-class ExampleIntroductionDataProvider
-    implements SharedPreferencesIntroductionDataProvider {
-  @override
-  String key = 'example';
-
-  @override
-  Future<void> setCompleted({bool value = true}) async =>
-      // ignore: void_checks
-      false;
-
-  @override
-  Future<bool> shouldShow() async => true;
 }

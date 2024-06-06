@@ -6,60 +6,65 @@ Flutter_start is a package that allows you to jumpstart your application with a 
 
 To use this package, add flutter_start as a dependency in your pubspec.yaml file:
 
-```
+```yaml
   flutter_start:
     git:
       url: https://github.com/Iconica-Development/flutter_start
-      ref: <Version>
+      ref: 4.1.0
 ```
 
-To use the module within your Flutter-application with predefined `Go_router` routes you should add the following:
+## go_router
 
-Add go_router as dependency to your project.
+Add `go_router` as dependency to your project.
+
 Add the following configuration to your flutter_application:
 
 ```
-StartUserStoryConfiguration startUserStoryConfiguration = const StartUserStoryConfiguration();
+List<GoRoute> getStartStoryRoutes() => getStartStoryRoutes();
 ```
 
-and set the values as you wish.
+Or with options:
 
-Next add the `StartUserStoryConfiguration` to `getStartStoryRoutes` Like so:
+Place the following code somewhere in your project where it can be accessed globally:
 
 ```
-List<GoRoute> getStartRoutes() => getStartStoryRoutes(
-      startUserStoryConfiguration,
+var startUserStoryConfiguration = const StartUserStoryConfiguration();
+```
+
+```
+List<GoRoute> getStartStoryRoutes() => getStartStoryRoutes(
+      configuration: startUserStoryConfiguration,
     );
 ```
 
-Finally add the `getStartRoutes` to your `Go_router` routes like so:
+Finally add the `getStartRoutes` to your `go_router` routes like so:
 
 ```
 final GoRouter _router = GoRouter(
   routes: <RouteBase>[
-    ...getStartRoutes()
+    ...getStartStoryRoutes()
   ],
 );
 ```
 
 The routes that can be used to navigate are:
 
-For routing to the `SplashScreen`:
+For routing to the `splashScreen`:
 
 ```
-  static const String splashScreen = '/splashScreen';
+static const String splashScreen = '/splashScreen';
 ```
 
-For routing to the `Introduction`:
+For routing to the `introduction`:
 
 ```
-  static const String introduction = '/introduction';
+static const String introduction = '/introduction';
 ```
 
-For routing to the `HomeEntry`:
+For routing to the `home`:
 
 ```
-  static const String home = '/home';
+static const String home = '/home';
 ```
 
 If you don't want a SplashScreen in your application set your initialRoute to `Introduction`:
@@ -73,42 +78,64 @@ final GoRouter _router = GoRouter(
 );
 ```
 
-To use the module within your Flutter-application without predefined `Go_router` routes but with `Navigator` routes add the following :
+## Navigator
 
-Add the following configuration to your flutter_application:
+Add the following code to the build-method of a chosen widget like so:
+```
+class Example extends StatelessWidget {
+  const Example({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return NavigatorStartUserStory(
+      onComplete: (context) {},
+    );
+  }
+}
+```
+
+or with options:
+
+Place the following code somewhere in your project where it can be accessed globally:
 
 ```
-StartUserStoryConfiguration startUserStoryConfiguration = const StartUserStoryConfiguration();
+var startUserStoryConfiguration = const StartUserStoryConfiguration();
 ```
 
-Add the following code to the build-method of a chosen widget:
-
 ```
-startNavigatorUserStory(startUserStoryConfiguration, context);
-```
+class Example extends StatelessWidget {
+  const Example({super.key});
 
-If the splashScreenBuilder is not used the SplashScreen will be skipped.
+  @override
+  Widget build(BuildContext context) {
+    return NavigatorStartUserStory(
+      configuration: startUserStoryConfiguration,
+      onComplete: (context) {},
+    );
+  }
+}
+```
 
 The `StartUserStoryConfiguration` has its own parameters, as specified below:
 | Parameter | Explanation |
 |-----------|-------------|
-| splashScreenBuilder | The builder for the splashScreen. |
-| introductionBuilder | The builder for the introduction. |
-| introductionOptionsBuilder | The options for the introduction. |
-| introductionService | The service for the introduction. Default IntroductionService (SharedPreferencesIntroductionDataProvider()) |
-| homeEntry | The widget that will be shown after the introduction. |
-| homeScreenRoute | The route that will be shown after the introduction when using gorouter |
-| introductionFallbackScreen | The widget that will be shown when the introduction is skipped. |
-| introductionScrollPhysics | The scrollPhysics for the introduction. |
-| showIntroduction | Whether or not the introduction should be shown. |
-| useKillswitch | Whether or not the killswitch should be used. This will only work when you use the splashScreen and you need to have a active internet connection|
-| minimumSplashScreenDuration | The minimum duration the splashScreen should be shown. |
-| splashScreenFuture | The future that will be awaited before the splashScreen is closed. |
-| splashScreenCenterWidget | The widget that will be shown in the center of the splashScreen. |
-| splashScreenBackgroundColor | The background color of the splashScreen. |
-| canPopFromIntroduction | Whether or not the introduction can be popped. |
-| killswitchService | The service for the killswitch. Instead of the default service |
-| showSplashScreen | Whether or not the splashScreen should be shown. |
+| `splashScreenBuilder` | The builder to override the default splashScreen |
+| `introductionBuilder` | A builder to wrap the introductions in your own page |
+| `introductionOptionsBuilder` | The builder to override the default `introductionOptions` |
+|`introductionService` | The service to override the default `introductionService` |
+| `homeScreenRoute` | The route to navigate to after the introduction or splashScreen is completed |
+| `introductionFallbackScreen` | The screen that is shown when something goes wrong fetching data for the introduction |
+| `introductionScrollPhysics` | The scroll physics for the introduction |
+| `showIntroduction` | A boolean to show the introduction or not. Defaults to true |
+| `useKillswitch` | A boolean to use the killswitch or not. Defaults to false |
+| `minimumSplashScreenDuration` | The minimum duration the splashScreen should be shown. Defaults to 3 seconds |
+| `splashScreenFuture` | The future to be completed before the splashScreen is completed |
+| `splashScreenCenterWidget` | The widget to be shown in the center of the splashScreen |
+| `splashScreenBackgroundColor` | The color of the splashScreen background. Defaults to Color(0xff212121) |
+| `canPopFromIntroduction` | Allow popping from introduction, defaults to true. Defaults to true |
+| `killswitchService` | The service to override the default killswitch service |
+| `showSplashScreen` | A boolean to show the splashScreen or not. Defaults to true |
+
 
 ## Issues
 

@@ -1,3 +1,8 @@
+## 4.1.0
+- Updated README
+- Removed check if the introductions should be shown.
+- Updated flutter_introduction to 3.1.0
+
 ## 4.0.0
 - Added default introduction page.
 - Added default splash screen.

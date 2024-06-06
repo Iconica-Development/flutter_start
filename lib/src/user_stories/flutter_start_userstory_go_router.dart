@@ -24,7 +24,6 @@ List<GoRoute> getStartStoryRoutes({
         pageBuilder: (context, state) {
           var go = context.go;
           var isAllowedToPassThrough = false;
-          var introductionSeen = false;
           String? routeAfterSplash;
           Future<void> splashLoadingMethod() async {
             await Future.wait<void>(
@@ -40,11 +39,6 @@ List<GoRoute> getStartStoryRoutes({
                           await killswitchService.isKillswitchActive();
                     }
 
-                    var introService = configuration.introductionService ??
-                        IntroductionService(
-                          SharedPreferencesIntroductionDataProvider(),
-                        );
-                    introductionSeen = !await introService.shouldShow();
                     if (context.mounted)
                       routeAfterSplash = await configuration.splashScreenFuture
                               ?.call(context) ??
@@ -62,7 +56,7 @@ List<GoRoute> getStartStoryRoutes({
 
             if (configuration.useKillswitch && isAllowedToPassThrough) return;
 
-            if (!configuration.showIntroduction || introductionSeen) {
+            if ((!configuration.showIntroduction) && context.mounted) {
               return go(
                 routeAfterSplash ?? StartUserStoryRoutes.home,
               );
@@ -85,7 +79,7 @@ List<GoRoute> getStartStoryRoutes({
                   body: Center(
                     child:
                         configuration.splashScreenCenterWidget?.call(context) ??
-                            defaultSplashScreen,
+                            defaultSplashScreen(context),
                   ),
                 ),
           );
