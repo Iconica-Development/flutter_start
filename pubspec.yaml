@@ -1,6 +1,6 @@
 name: flutter_start
 description: "Flutter_start is a package that allows you to jumpstart your application with a splashScreen, introduction and a home."
-version: 4.2.0
+version: 4.2.1
 
 publish_to: https://forgejo.internal.iconica.nl/api/packages/internal/pub
 
@@ -16,10 +16,10 @@ dependencies:
   package_info_plus: ">=8.0.0 <9.0.0"
   flutter_introduction:
     hosted: https://forgejo.internal.iconica.nl/api/packages/internal/pub
-    version: "^4.0.0"
+    version: "^5.0.0"
   flutter_introduction_shared_preferences:
-    hosted: https://forgejo.internal.iconica.nl/api/packages/internal/pub
-    version: "^4.0.0"
+    hosted: https://forgejo.internal.iconica.nl/api/packages/internal/pub/
+    version: ^5.0.0
 
 dev_dependencies:
   flutter_test:
