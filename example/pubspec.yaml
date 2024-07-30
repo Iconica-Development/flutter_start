@@ -12,8 +12,8 @@ dependencies:
   flutter_start:
     path: ../
   flutter_introduction_shared_preferences:
-    hosted: https://forgejo.internal.iconica.nl/api/packages/internal/pub
-    version: "^4.0.0"
+    hosted: https://forgejo.internal.iconica.nl/api/packages/internal/pub/
+    version: ^5.0.0
 
 dev_dependencies:
   flutter_test:

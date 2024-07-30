@@ -1,3 +1,7 @@
+## 4.2.1
+
+* Updated flutter_introduction to 5.0.0
+
 ## 4.1.0
 - Updated README
 - Removed check if the introductions should be shown.
