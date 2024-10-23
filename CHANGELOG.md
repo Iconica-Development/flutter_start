@@ -1,6 +1,10 @@
-## 4.2.1
+## 5.0.0
+- Updated README
+- Added new userstory structure
+- refactored package
 
-* Updated flutter_introduction to 5.0.0
+## 4.2.1
+- Updated flutter_introduction to 5.0.0
 
 ## 4.1.0
 - Updated README

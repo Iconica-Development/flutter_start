@@ -1,4 +1,4 @@
-name: flutter_start
+name: firebase_start_repository
 description: "A new Flutter package project."
 version: 0.0.1
 homepage: none
@@ -11,12 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_introduction:
-    hosted: https://forgejo.internal.iconica.nl/api/packages/internal/pub
-    version: ^5.0.0
-  flutter_introduction_shared_preferences:
-    hosted: https://forgejo.internal.iconica.nl/api/packages/internal/pub/
-    version: ^5.0.0
+  http: ^1.2.2
+  package_info_plus: ^8.1.0
   start_repository_interface:
     path: ../start_repository_interface
 

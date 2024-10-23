@@ -1,7 +1,6 @@
+///
 library start_repository_interface;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export "src/interfaces/killswitch_repository_interface.dart";
+export "src/local/local_killswitch_repository.dart";
+export "src/services/start_service.dart";
