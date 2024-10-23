@@ -21,7 +21,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => NavigatorStartUserStory(
-        configuration: config,
+        // configuration: config,
         onComplete: (context) async {
           await Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => const HomeEntry()),
@@ -30,16 +30,33 @@ class Home extends StatelessWidget {
       );
 }
 
-List<GoRoute> getStartRoutes() => getStartStoryRoutes(
-      configuration: config,
-    );
-
 StartUserStoryConfiguration config = StartUserStoryConfiguration(
   // showIntroduction: false,
+  introductionService: MyIntroductionService(),
   splashScreenBuilder: (context, onFinish) => SplashScreen(
     onFinish: onFinish,
   ),
 );
+
+class MyIntroductionService implements IntroductionService {
+  @override
+  Future<void> onComplete() {
+    // TODO: implement onComplete
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> onSkip() {
+    // TODO: implement onSkip
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> shouldShow() {
+    // TODO: implement shouldShow
+    throw UnimplementedError();
+  }
+}
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({

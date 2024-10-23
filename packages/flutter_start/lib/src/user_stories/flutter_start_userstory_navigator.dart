@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_start/flutter_start.dart';
-import 'package:flutter_start/src/services/killswitch_service.dart';
-import 'package:flutter_start/src/widgets/default_splash_screen.dart';
+import '../../flutter_start.dart';
+import '../services/killswitch_service.dart';
+import '../widgets/default_splash_screen.dart';
 
 /// Initial screen of the user story.
 ///
