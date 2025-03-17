@@ -1,6 +1,8 @@
-## 4.2.1
+## 4.2.2
+- Added custom navigator in the root of the navigator user-story
 
-* Updated flutter_introduction to 5.0.0
+## 4.2.1
+- Updated flutter_introduction to 5.0.0
 
 ## 4.1.0
 - Updated README

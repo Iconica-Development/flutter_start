@@ -19,13 +19,11 @@ class NavigatorStartUserStory extends StatelessWidget {
   final void Function(BuildContext context) onComplete;
 
   @override
-  Widget build(BuildContext context) {
-    if (!configuration.showSplashScreen) {
-      return _introduction(configuration, context, onComplete);
-    }
-
-    return _splashScreen(configuration, context, onComplete);
-  }
+  Widget build(BuildContext context) => Navigator(
+        onGenerateInitialRoutes: (_, __) => [
+          _getInitialRoute(configuration, onComplete),
+        ],
+      );
 }
 
 /// Enter the start user story with the Navigator 1.0 API.
@@ -42,6 +40,15 @@ Future<void> startNavigatorUserStory(
   StartUserStoryConfiguration configuration, {
   required void Function(BuildContext context) onComplete,
 }) async {
+  var initialRoute = _getInitialRoute(configuration, onComplete);
+
+  await Navigator.of(context).push(initialRoute);
+}
+
+MaterialPageRoute<dynamic> _getInitialRoute(
+  StartUserStoryConfiguration configuration,
+  void Function(BuildContext context) onComplete,
+) {
   var initialRoute = MaterialPageRoute(
     builder: (context) => _splashScreen(
       configuration,
@@ -59,8 +66,7 @@ Future<void> startNavigatorUserStory(
       ),
     );
   }
-
-  await Navigator.of(context).push(initialRoute);
+  return initialRoute;
 }
 
 Widget _splashScreen(
