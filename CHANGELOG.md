@@ -1,3 +1,6 @@
+## 4.2.3
+- Added check if introduction should be shown according to the service before showing the introduction at all
+
 ## 4.2.2
 - Added custom navigator in the root of the navigator user-story
 

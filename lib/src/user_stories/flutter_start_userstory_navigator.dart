@@ -104,22 +104,25 @@ Widget _splashScreen(
 
     if (configuration.useKillswitch && isAllowedToPassThrough) return;
 
-    if ((!configuration.showIntroduction) && context.mounted) {
-      onComplete(context);
-      return;
-    }
+    var introService = configuration.introductionService ??
+        IntroductionService(SharedPreferencesIntroductionDataProvider());
 
-    if (context.mounted) {
-      await navigator.pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => _introduction(
-            configuration,
-            context,
-            onComplete,
-          ),
+    var shouldShowIntroduction =
+        configuration.showIntroduction && await introService.shouldShow();
+
+    if (!context.mounted) return;
+
+    if (!shouldShowIntroduction) return onComplete(context);
+
+    await navigator.pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => _introduction(
+          configuration,
+          context,
+          onComplete,
         ),
-      );
-    }
+      ),
+    );
   }
 
   var builder = configuration.splashScreenBuilder;
