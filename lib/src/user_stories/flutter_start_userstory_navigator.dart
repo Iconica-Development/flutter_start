@@ -125,10 +125,11 @@ Widget _splashScreen(
     );
   }
 
+  unawaited(splashHandler());
+
   var builder = configuration.splashScreenBuilder;
 
   if (builder == null) {
-    unawaited(splashHandler());
     return Scaffold(
       backgroundColor: configuration.splashScreenBackgroundColor,
       body: Center(

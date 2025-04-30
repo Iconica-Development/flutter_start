@@ -1,3 +1,6 @@
+## 4.2.4
+- Fixed the userstory to always call the splashScreenFuture and killswitchservice logic when a custom splashScreenBuilder is provided
+
 ## 4.2.3
 - Added check if introduction should be shown according to the service before showing the introduction at all
 
