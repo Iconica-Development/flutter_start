@@ -8,7 +8,7 @@ To use this package, add flutter_start as a dependency in your pubspec.yaml file
 
 ```yaml
 dependencies:
-  flutter_feedback: 
+  flutter_start: 
     hosted: https://forgejo.internal.iconica.nl/api/packages/internal/pub
     version: <current version>
 ```
