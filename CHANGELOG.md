@@ -1,3 +1,6 @@
+## 4.2.5
+- Removed the default black color value from splashScreenBackgroundColor if it was not provided in the configuration, so it defaults to ThemeData.scaffoldBackgroundColor
+
 ## 4.2.4
 - Fixed the userstory to always call the splashScreenFuture and killswitchservice logic when a custom splashScreenBuilder is provided
 

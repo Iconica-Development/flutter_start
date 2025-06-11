@@ -20,7 +20,7 @@ class StartUserStoryConfiguration {
     this.minimumSplashScreenDuration = 3,
     this.splashScreenFuture,
     this.splashScreenCenterWidget,
-    this.splashScreenBackgroundColor = const Color(0xff212121),
+    this.splashScreenBackgroundColor,
     this.canPopFromIntroduction = true,
     this.killswitchService,
     this.showSplashScreen = true,

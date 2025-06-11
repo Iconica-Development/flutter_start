@@ -7,10 +7,10 @@ Flutter_start is a package that allows you to jumpstart your application with a 
 To use this package, add flutter_start as a dependency in your pubspec.yaml file:
 
 ```yaml
-  flutter_start:
-    git:
-      url: https://github.com/Iconica-Development/flutter_start
-      ref: 4.1.0
+dependencies:
+  flutter_feedback: 
+    hosted: https://forgejo.internal.iconica.nl/api/packages/internal/pub
+    version: <current version>
 ```
 
 ## go_router
@@ -131,7 +131,7 @@ The `StartUserStoryConfiguration` has its own parameters, as specified below:
 | `minimumSplashScreenDuration` | The minimum duration the splashScreen should be shown. Defaults to 3 seconds |
 | `splashScreenFuture` | The future to be completed before the splashScreen is completed |
 | `splashScreenCenterWidget` | The widget to be shown in the center of the splashScreen |
-| `splashScreenBackgroundColor` | The color of the splashScreen background. Defaults to Color(0xff212121) |
+| `splashScreenBackgroundColor` | The color of the splashScreen background. Defaults to ThemeData.scaffoldBackgroundColor |
 | `canPopFromIntroduction` | Allow popping from introduction, defaults to true. Defaults to true |
 | `killswitchService` | The service to override the default killswitch service |
 | `showSplashScreen` | A boolean to show the splashScreen or not. Defaults to true |
