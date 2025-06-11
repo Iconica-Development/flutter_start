@@ -1,4 +1,5 @@
 ## 4.2.5
+- Removed cupertino_icons dependency from pubspec.yaml
 - Removed the default black color value from splashScreenBackgroundColor if it was not provided in the configuration, so it defaults to ThemeData.scaffoldBackgroundColor
 
 ## 4.2.4
